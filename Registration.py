@@ -1,9 +1,38 @@
 from fbchat import log, Client
+import re
 
 from Bot import *
 from Utils import *
+from Isod import *
 
 class Registration:
+
+    def getPassword(author_id):
+
+        with open('accounts.txt', 'r+') as f:
+            buf = f.readlines()
+
+        iterator = iter(range(0, len(buf)))
+        for i in iterator:    
+            if buf[i].startswith('id: ' + author_id):
+                try:
+                    return re.findall(r'password: (.*)', buf[i+1])
+                except:
+                    return None
+
+
+    def getLogin(author_id):
+        
+        with open('accounts.txt', 'r+') as f:
+            buf = f.readlines()
+
+        iterator = iter(range(0, len(buf)))
+        for i in iterator:    
+            if buf[i].startswith('id: ' + author_id):
+                try:
+                    return re.findall(r'login: (.*)', buf[i+2])
+                except:
+                    return None
 
     #save to the end of the 'db file
 
@@ -58,11 +87,15 @@ class Registration:
             Registration.ask_for_password(bot, thread_id)
 
         elif Registration.registered(author_id) == 2:
-            
             Registration.save_after('password: ' + text + '\n', author_id)
-            Registration.registration_complete(bot, thread_id)
-
+            login = Registration.getLogin(author_id)
+            password = Registration.getPassword(author_id)
+            if Isod.verifyData(login, password) == False:
+                Utils.delete_my_data(bot, author_id, thread_id)
+                bot.send(Message(text='Chyba podałeś/aś złe dane logowania. Podaj login jeszcze raz'), thread_id=thread_id)
+                Registration.save('id: ' + author_id + '\n')
         else:
+            Utils.user_recognized(bot, thread_id)
             Utils.manage_utils(bot, text, author_id, thread_id)
 
 
