@@ -15,12 +15,12 @@ class Utils:
             iterator = iter(range(0, len(buf)))
             for i in iterator:
                 try:    
-                    if buf[i + 1] == 'id: 100002596554128\n':
+                    if buf[i + 1].startswith('id: ' + author_id):
                         next(iterator)
                         next(iterator)
                         next(iterator) 
-                    print(buf[i])
-                    out.write(buf[i])
+                        print(buf[i])
+                        out.write(buf[i])
                 except:
                     pass
 
@@ -37,5 +37,6 @@ class Utils:
     def manage_utils(bot, text, author_id, thread_id):
         if text == 'Nie znasz mnie':
             Utils.delete_my_data(bot, author_id, thread_id)
+            bot.send(Message(text='Kim Ty jesteś?'), thread_id=thread_id)
         else:
             Utils.user_recognized(bot, thread_id)
