@@ -1,11 +1,37 @@
 from fbchat.models import *
 from fbchat import Client, log
 
-from Bot import *
 from Registration import *
 from iisod import *
 
 class Utils:
+
+    def getPassword(author_id):
+
+        with open('accounts.txt', 'r+') as f:
+            buf = f.readlines()
+
+        iterator = iter(range(0, len(buf)))
+        for i in iterator:    
+            if buf[i].startswith('id: ' + author_id):
+                try:
+                    return re.findall(r'password: (.*)', buf[i+1])
+                except:
+                    return None
+
+
+    def getLogin(author_id):
+        
+        with open('accounts.txt', 'r+') as f:
+            buf = f.readlines()
+
+        iterator = iter(range(0, len(buf)))
+        for i in iterator:    
+            if buf[i].startswith('id: ' + author_id):
+                try:
+                    return re.findall(r'login: (.*)', buf[i+2])
+                except:
+                    return None
 
     #delete user's data from 'db' file
 
@@ -35,7 +61,7 @@ class Utils:
         bot.send(Message(text='[JUZ SIE ZNAMY]'), thread_id=thread_id)
 
     def getTodayPlan(login, password):
-        plan.format_plan(login, password)
+        return plan.format_plan(login, password)
 
 
 
@@ -44,9 +70,9 @@ class Utils:
             Utils.delete_my_data(bot, author_id, thread_id)
             bot.send(Message(text='Kim Ty jesteś?'), thread_id=thread_id)
         elif text == 'Plan na dzisiaj':
-            login = Registration.getLogin(author_id)[0]
-            password = Registration.getPassword(author_id)[0]
-            message = plan.getTodayPlan(login, password)
+            login = Utils.getLogin(author_id)[0]
+            password = Utils.getPassword(author_id)[0]
+            message = Utils.getTodayPlan(login, password)
             bot.send(Message(text=message), thread_id=thread_id)
         else:
             Utils.user_recognized(bot, thread_id)

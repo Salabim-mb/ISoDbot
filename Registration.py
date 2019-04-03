@@ -4,35 +4,10 @@ import re
 from Bot import *
 from Utils import *
 from Isod import *
+from iisod import *
 
 class Registration:
 
-    def getPassword(author_id):
-
-        with open('accounts.txt', 'r+') as f:
-            buf = f.readlines()
-
-        iterator = iter(range(0, len(buf)))
-        for i in iterator:    
-            if buf[i].startswith('id: ' + author_id):
-                try:
-                    return re.findall(r'password: (.*)', buf[i+1])
-                except:
-                    return None
-
-
-    def getLogin(author_id):
-        
-        with open('accounts.txt', 'r+') as f:
-            buf = f.readlines()
-
-        iterator = iter(range(0, len(buf)))
-        for i in iterator:    
-            if buf[i].startswith('id: ' + author_id):
-                try:
-                    return re.findall(r'login: (.*)', buf[i+2])
-                except:
-                    return None
 
     #save to the end of the 'db file
     def save(text):
@@ -87,11 +62,11 @@ class Registration:
 
         elif Registration.registered(author_id) == 2:
             Registration.save_after('password: ' + text + '\n', author_id)
-            login = Registration.getLogin(author_id)
-            password = Registration.getPassword(author_id)
+            login = Utils.getLogin(author_id)
+            password = Utils.getPassword(author_id)
             if Isod.verifyData(login, password) == False:
                 Utils.delete_my_data(bot, author_id, thread_id)
-                bot.send(Message(text='Chyba podałeś/aś złe dane logowania. Podaj login jeszcze raz'), thread_id=thread_id)
+                bot.send(Message(text='Chyba podales zle dane logowania. Podaj login jeszcze raz'), thread_id=thread_id)
                 Registration.save('id: ' + author_id + '\n')
             else:
                 bot.send(Message(text='Rejestracja udana'), thread_id=thread_id)
@@ -102,10 +77,10 @@ class Registration:
 
 
     def ask_for_username(bot, thread_id):
-        bot.send(Message(text='Chyba jeszcze się nie znamy. Może się przedstawisz? Najlepiej loginem i hasłem do ISoD, podanymi kolejnych w 2 wiadomościach :)'), thread_id=thread_id)
+        bot.send(Message(text='Chyba jeszcze sie nie znamy. Moze sie przedstawisz? Najlepiej loginem i haslem do ISoD, podanymi kolejnych w 2 wiadomosciach :)'), thread_id=thread_id)
    
     def ask_for_password(bot, thread_id):
-        bot.send(Message(text='Teraz jeszcze hasło. Nikomu nie powiem ;)'), thread_id=thread_id)
+        bot.send(Message(text='Teraz jeszcze haslo. Nikomu nie powiem ;)'), thread_id=thread_id)
 
     def registration_complete(bot, thread_id):
         bot.send(Message(text='[TUTAJ BEDZIE PROBA ZALOGOWANIA DO ISODA ZEBY SPRAWDZIC CZY DOBRE PASY]'), thread_id=thread_id)
