@@ -1,4 +1,4 @@
 from Bot import *
 
-bot = Bot('reymontpio', 'pioprojekt')
+bot = Bot('szymborskapio@gmail.com', 'pioprojekt')
 bot.listen()

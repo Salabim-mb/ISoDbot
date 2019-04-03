@@ -2,6 +2,8 @@ from fbchat.models import *
 from fbchat import Client, log
 
 from Bot import *
+from Registration import *
+from iisod import *
 
 class Utils:
 
@@ -32,11 +34,20 @@ class Utils:
     def user_recognized(bot, thread_id):
         bot.send(Message(text='[JUZ SIE ZNAMY]'), thread_id=thread_id)
 
+    def getTodayPlan(login, password):
+        plan.format_plan(login, password)
+
 
 
     def manage_utils(bot, text, author_id, thread_id):
         if text == 'Nie znasz mnie':
             Utils.delete_my_data(bot, author_id, thread_id)
             bot.send(Message(text='Kim Ty jesteś?'), thread_id=thread_id)
+        elif text == 'Plan na dzisiaj':
+            login = Registration.getLogin(author_id)[0]
+            password = Registration.getPassword(author_id)[0]
+            message = plan.getTodayPlan(login, password)
+            bot.send(Message(text=message), thread_id=thread_id)
         else:
             Utils.user_recognized(bot, thread_id)
+

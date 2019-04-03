@@ -34,7 +34,6 @@ class isod:
             'https://isod.ee.pw.edu.pl/isod-stud/person?wicket:interface=:15:person:contApikey:showApikey::ILinkListener::',
             cookies=c)).text, 'html.parser')
         # tutaj mamy juz ladna stronke  'dane osoby', gdzie mozna znalezc swoje api
-        print('Wlazlem ci na isoda...\n')
         spans = soup.find_all(
             attrs={"class": "value"});  # szukamy po klasie 'values', bo taka klase ma span, ktory zawiera api
         api = spans[len(spans) - 1].text  # ciezko mi bylo wyodrebnic samo api, na szczescie jest ostatnim spanem na stronie, wiec z tego korzystamy
@@ -99,8 +98,8 @@ class plan:
             t = datetime.strptime(obj.endTime, "%I:%M:%S %p")
             obj.endTime = datetime.strftime(t, "%H:%M")
         today_act.sort(key=lambda x: x.startTime)
+        res = "Twój plan na dzisiaj:\n"
         for obj in today_act:
-            print(
-                obj.courseName + '\n' + obj.startTime + ' - ' + obj.endTime + '\n' + obj.building + ' ' + obj.room + '\n')
-#format_plan('login', 'haslo')
+                res += obj.courseName + '\n' + obj.startTime + ' - ' + obj.endTime + '\n' + obj.building + ' ' + obj.room + '\n'
+        return res
 

@@ -35,7 +35,6 @@ class Registration:
                     return None
 
     #save to the end of the 'db file
-
     def save(text):
         with open("accounts.txt", "a") as f:
             f.write(text)
@@ -94,8 +93,9 @@ class Registration:
                 Utils.delete_my_data(bot, author_id, thread_id)
                 bot.send(Message(text='Chyba podałeś/aś złe dane logowania. Podaj login jeszcze raz'), thread_id=thread_id)
                 Registration.save('id: ' + author_id + '\n')
+            else:
+                bot.send(Message(text='Rejestracja udana'), thread_id=thread_id)
         else:
-            Utils.user_recognized(bot, thread_id)
             Utils.manage_utils(bot, text, author_id, thread_id)
 
 
