@@ -65,7 +65,7 @@ class Registration:
             login = Utils.getLogin(author_id)
             password = Utils.getPassword(author_id)
             if Isod.verifyData(login, password) == False:
-                Utils.delete_my_data(bot, author_id, thread_id)
+                Utils.delete_my_data(author_id)
                 bot.send(Message(text='Chyba podales zle dane logowania. Podaj login jeszcze raz'), thread_id=thread_id)
                 Registration.save('id: ' + author_id + '\n')
             else:
