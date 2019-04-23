@@ -2,9 +2,8 @@ from Isod import *
 from bs4 import *
 
 class plan_item:
-    def __init__(self, id):
-        self.id = id
-
+        def __init__(self, id):
+            self.id = id
 
 class Parser:
     def parseplan(text): #przetwarza plan na taki, ktory nadaje sie do getplandaily oraz getplanweekly

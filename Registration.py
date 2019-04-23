@@ -4,9 +4,9 @@ import re
 from Bot import *
 from Utils import *
 from Isod import *
+from Ciphrator import *
 
 class Registration:
-
 
     #save to the end of the 'db file
     def save(text):
@@ -55,11 +55,12 @@ class Registration:
             Registration.ask_for_username(bot, thread_id)
 
         elif Registration.registered(author_id) == 1:
-
+            text = Ciphrator.cypher(text)
             Registration.save_after('login: ' + text + '\n', author_id)
             Registration.ask_for_password(bot, thread_id)
 
         elif Registration.registered(author_id) == 2:
+            text = Ciphrator.cypher(text)
             Registration.save_after('password: ' + text + '\n', author_id)
             login = Utils.getLogin(author_id)
             password = Utils.getPassword(author_id)
