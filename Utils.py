@@ -2,7 +2,9 @@ from fbchat.models import *
 from fbchat import Client, log
 
 from Registration import *
+from Ciphrator import *
 from Isod import *
+from Parser import *
 
 class Utils:
 
@@ -17,7 +19,7 @@ class Utils:
         for i in iterator:    
             if buf[i].startswith('id: ' + author_id):
                 try:
-                    return re.findall(r'password: (.*)', buf[i+1])
+                    return Ciphrator.decypher(re.findall(r'password: (.*)', buf[i+1])[0])#re.findall(r'password: (.*)', buf[i+1])[0]#
                 except:
                     return None
 
@@ -32,7 +34,7 @@ class Utils:
         for i in iterator:    
             if buf[i].startswith('id: ' + author_id):
                 try:
-                    return re.findall(r'login: (.*)', buf[i+2])
+                    return Ciphrator.decypher(re.findall(r'login: (.*)', buf[i+2])[0])#re.findall(r'login: (.*)', buf[i+2])[0]#
                 except:
                     return None
 
@@ -50,7 +52,6 @@ class Utils:
                         next(iterator)
                         next(iterator)
                         next(iterator) 
-                        print(buf[i])
                         out.write(buf[i])
                 except:
                     pass
@@ -91,19 +92,8 @@ class Utils:
     #find keywords about the news
 
     def wantToGetNews(text):
-        if('Aktualności' in text or 'aktualności' in text or 'News' in text or 'news' in text or 'Aktualność' in text or 'aktualność') in text:
-            if '1' in text:
-                return 1
-            elif '2' in text:
-                return 2
-            elif '3' in text:
-                return 3
-            elif '4' in text:
-                return 4
-            elif '5' in text:
-                return 5
-            else:
-                return -1
+        if 'Aktualności' in text or 'aktualności' in text or 'News' in text or 'news' in text:
+            return True
         return False
 
 
@@ -124,6 +114,11 @@ class Utils:
 
     def manage_utils(bot, text, author_id, thread_id):
 
+        login = Utils.getLogin(author_id)
+        password = Utils.getPassword(author_id)
+        plan = Isod.getPlan(login, password)
+        news = Isod.getNews(login, password)
+
         #user data deletion
 
         if Utils.wantToDeleteData(text):
@@ -133,36 +128,31 @@ class Utils:
         #plan section
 
         elif Utils.wantToGetPlan(text) == 1:
-            bot.send(Message(text='[PLAN NA PONIEDZIALEK]'), thread_id=thread_id)
+            bot.send(Message(text=Parser.getplandaily(plan, 1)), thread_id=thread_id)
         elif Utils.wantToGetPlan(text) == 2:
-            bot.send(Message(text='[PLAN NA WTOREK]'), thread_id=thread_id)
+            bot.send(Message(text=Parser.getplandaily(plan, 2)), thread_id=thread_id)
         elif Utils.wantToGetPlan(text) == 3:
-            bot.send(Message(text='[PLAN NA SRODE]'), thread_id=thread_id)
+            bot.send(Message(text=Parser.getplandaily(plan, 3)), thread_id=thread_id)
         elif Utils.wantToGetPlan(text) == 4:
-            bot.send(Message(text='[PLAN NA CZWARTEK]'), thread_id=thread_id)
+            bot.send(Message(text=Parser.getplandaily(plan, 4)), thread_id=thread_id)
         elif Utils.wantToGetPlan(text) == 5:
-            bot.send(Message(text='[PLAN NA PIATEK]'), thread_id=thread_id)
+            bot.send(Message(text=Parser.getplandaily(plan, 5)), thread_id=thread_id)
         elif Utils.wantToGetPlan(text) == 6:
             bot.send(Message(text='W weekend nie masz zajęć :)'), thread_id=thread_id)
         elif Utils.wantToGetPlan(text) == 7:
-            bot.send(Message(text='[PLAN NA CALY TYDZIEN]'), thread_id=thread_id)
+            bot.send(Message(text=Parser.getplanweekly(plan)), thread_id=thread_id)
         elif Utils.wantToGetPlan(text) == -1:
             bot.send(Message(text='Może to ja niedomagam, ale nie wiem na kiedy chcesz ten plan. Wyrażaj się jaśniej proszę'), thread_id=thread_id)
 
         #News section
 
-        elif Utils.wantToGetNews(text) == 1:
-            bot.send(Message(text='[NEWS #1]'), thread_id=thread_id)
-        elif Utils.wantToGetNews(text) == 2:
-            bot.send(Message(text='[NEWS #2]'), thread_id=thread_id)
-        elif Utils.wantToGetNews(text) == 3:
-            bot.send(Message(text='[NEWS #3]'), thread_id=thread_id)
-        elif Utils.wantToGetNews(text) == 4:
-            bot.send(Message(text='[NEWS #4]'), thread_id=thread_id)
-        elif Utils.wantToGetNews(text) == 5:
-            bot.send(Message(text='[NEWS #5]'), thread_id=thread_id)
-        elif Utils.wantToGetNews(text) == -1:
-            bot.send(Message(text='To Twoje 5 najnowszych newsów. Mogę Ci też pokazać treści konkretnych aktualności, jeśli tylko o nie ładnie poprosisz (np. NEWS #3)'), thread_id=thread_id)
+       
+        elif Utils.wantToGetNews(text) == True:
+            bot.send(Message(text=Parser.getlastnews(news)[0]), thread_id=thread_id)
+            bot.send(Message(text=Parser.getlastnews(news)[1]), thread_id=thread_id)
+            bot.send(Message(text=Parser.getlastnews(news)[2]), thread_id=thread_id)
+            bot.send(Message(text=Parser.getlastnews(news)[3]), thread_id=thread_id)
+            bot.send(Message(text=Parser.getlastnews(news)[4]), thread_id=thread_id)
 
         else:
             Utils.messageNotRecognized(bot, thread_id)
