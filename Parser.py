@@ -118,5 +118,3 @@ class Parser:
     def getnewsno(text, n): #daje naglowek numer n, zaczynajac od 0
         news = Parser.parsenews(text)
         return news[n].subject
-news = Isod.getNews('polaczej', '6pVev7sf')
-print(Parser.getnewsno(news, 0))
