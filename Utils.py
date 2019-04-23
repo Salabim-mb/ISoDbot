@@ -2,7 +2,7 @@ from fbchat.models import *
 from fbchat import Client, log
 
 from Registration import *
-from iisod import *
+from Isod import *
 
 class Utils:
 

@@ -4,7 +4,6 @@ import re
 from Bot import *
 from Utils import *
 from Isod import *
-from iisod import *
 
 class Registration:
 
