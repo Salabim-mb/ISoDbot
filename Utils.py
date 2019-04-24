@@ -1,5 +1,6 @@
 from fbchat.models import *
 from fbchat import Client, log
+import os
 
 from Registration import *
 from Ciphrator import *
@@ -11,50 +12,21 @@ class Utils:
     #if the user exists, return his password, if not return None
 
     def getPassword(author_id):
-
-        with open('accounts.txt', 'r+') as f:
-            buf = f.readlines()
-
-        iterator = iter(range(0, len(buf)))
-        for i in iterator:    
-            if buf[i].startswith('id: ' + author_id):
-                try:
-                    return Ciphrator.decypher(re.findall(r'password: (.*)', buf[i+1])[0])#re.findall(r'password: (.*)', buf[i+1])[0]#
-                except:
-                    return None
+        f = open('accounts/' + author_id)
+        lines = f.readlines()
+        return (Ciphrator.decypher(lines[2]))
 
     #if the user exists, return his login, if not return None
 
     def getLogin(author_id):
-        
-        with open('accounts.txt', 'r+') as f:
-            buf = f.readlines()
-
-        iterator = iter(range(0, len(buf)))
-        for i in iterator:    
-            if buf[i].startswith('id: ' + author_id):
-                try:
-                    return Ciphrator.decypher(re.findall(r'login: (.*)', buf[i+2])[0])#re.findall(r'login: (.*)', buf[i+2])[0]#
-                except:
-                    return None
+        f = open('accounts/' + author_id)
+        lines = f.readlines()
+        return Ciphrator.decypher(lines[1])
 
     #delete user's data from 'db' file
 
     def delete_my_data(author_id):
-        with open("accounts.txt", "r+") as in_file:
-            buf = in_file.readlines()
-
-        with open('accounts.txt', 'w') as out:
-            iterator = iter(range(0, len(buf)))
-            for i in iterator:
-                try:    
-                    if buf[i + 1].startswith('id: ' + author_id):
-                        next(iterator)
-                        next(iterator)
-                        next(iterator) 
-                        out.write(buf[i])
-                except:
-                    pass
+        os.remove('accounts/' + author_id)
 
     #find keywords for deleting users data
 

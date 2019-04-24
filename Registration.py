@@ -8,40 +8,36 @@ from Ciphrator import *
 
 class Registration:
 
+    def fileExists(author_id):
+        try:
+            f = open('accounts/' + author_id, 'r')
+        except:
+            return False
+        return True
+
+    def fileSize(author_id):
+        with open('accounts/' + author_id) as f:
+            for i, l in enumerate(f):
+                pass
+        return i + 1
+
     #save to the end of the 'db file
-    def save(text):
-        with open("accounts.txt", "a") as f:
+    def save(text, author_id):
+        with open('accounts/' + author_id, 'a') as f:
             f.write(text)
-
-    #save to the 'db' file in sorted form (id \n pass \n login)
-
-    def save_after(text, author_id):
-        with open("accounts.txt", "r+") as in_file:
-            buf = in_file.readlines()
-
-        with open("accounts.txt", "w") as out_file:
-            for line in buf:
-                if line.startswith('id: ' + author_id):
-                    line = line + text
-                out_file.write(line)
 
     #check if user is registred or in progress of registraton
 
     def registered(author_id):
-        f = open("accounts.txt", "r+")
-        for line in f:
-            if line.startswith('id: ' + author_id):
-                try:
-                    if next(f).startswith('login:'):
-                        return 2
-                    else:
-                        return 3
-                except StopIteration:
-                    return 1
-                
-
-        f.close()
-        return 0
+        if(Registration.fileExists(author_id) == False):
+            return 0
+        elif(Registration.fileSize(author_id) == 1):
+            return 1
+        elif(Registration.fileSize(author_id) == 2):
+            return 2
+        else:
+            return -1
+        
         
 
     #registration process - if registered, use the utilities
@@ -50,24 +46,25 @@ class Registration:
     def registration_check(bot, thread_id, author_id, text):
 
         if Registration.registered(author_id) == 0:
-
-            Registration.save('id: ' + author_id + '\n')
+            f = open('accounts/' + author_id, "w+")
+            f.close()
+            Registration.save(author_id + '\n', author_id)
             Registration.ask_for_username(bot, thread_id)
 
         elif Registration.registered(author_id) == 1:
             text = Ciphrator.cypher(text)
-            Registration.save_after('login: ' + text + '\n', author_id)
+            Registration.save(text + '\n', author_id)
             Registration.ask_for_password(bot, thread_id)
 
         elif Registration.registered(author_id) == 2:
             text = Ciphrator.cypher(text)
-            Registration.save_after('password: ' + text + '\n', author_id)
+            Registration.save(text + '\n', author_id)
             login = Utils.getLogin(author_id)
             password = Utils.getPassword(author_id)
             if Isod.verifyData(login, password) == False:
                 Utils.delete_my_data(author_id)
                 bot.send(Message(text='Chyba podales zle dane logowania. Podaj login jeszcze raz'), thread_id=thread_id)
-                Registration.save('id: ' + author_id + '\n')
+                Registration.save(author_id + '\n', author_id)
             else:
                 bot.send(Message(text='Rejestracja udana'), thread_id=thread_id)
         else:
@@ -81,10 +78,6 @@ class Registration:
    
     def ask_for_password(bot, thread_id):
         bot.send(Message(text='Teraz jeszcze haslo. Nikomu nie powiem ;)'), thread_id=thread_id)
-
-    def registration_complete(bot, thread_id):
-        bot.send(Message(text='[TUTAJ BEDZIE PROBA ZALOGOWANIA DO ISODA ZEBY SPRAWDZIC CZY DOBRE PASY]'), thread_id=thread_id)
-
 
 
 

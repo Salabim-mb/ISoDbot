@@ -1,3 +1,3 @@
 #!/bin/bash
-rm accounts.txt
-touch accounts.txt
+rm -r accounts
+mkdir accounts

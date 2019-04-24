@@ -10,8 +10,9 @@ class Ciphrator:
 	def decypher(text):
 		result = ''
 		for letter in text:
-			letter = chr((ord(letter) - len(text) % 6) % 128)
-			result += letter
+			if(letter != '\n'):
+				letter = chr((ord(letter) - (len(text) - 1) % 6) % 128)
+				result += letter
 		return result
 
 		
