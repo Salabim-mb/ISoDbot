@@ -14,14 +14,14 @@ class Utils:
     def getPassword(author_id):
         f = open('accounts/' + author_id)
         lines = f.readlines()
-        return (Ciphrator.decypher(lines[2]))
+        return (Ciphrator.decrypt(lines[2]))
 
     #if the user exists, return his login, if not return None
 
     def getLogin(author_id):
         f = open('accounts/' + author_id)
         lines = f.readlines()
-        return Ciphrator.decypher(lines[1])
+        return Ciphrator.decrypt(lines[1])
 
     #delete user's data from 'db' file
 
@@ -128,4 +128,3 @@ class Utils:
 
         else:
             Utils.messageNotRecognized(bot, thread_id)
-

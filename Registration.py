@@ -52,12 +52,12 @@ class Registration:
             Registration.ask_for_username(bot, thread_id)
 
         elif Registration.registered(author_id) == 1:
-            text = Ciphrator.cypher(text)
+            text = Ciphrator.encrypt(text)
             Registration.save(text + '\n', author_id)
             Registration.ask_for_password(bot, thread_id)
 
         elif Registration.registered(author_id) == 2:
-            text = Ciphrator.cypher(text)
+            text = Ciphrator.encrypt(text)
             Registration.save(text + '\n', author_id)
             login = Utils.getLogin(author_id)
             password = Utils.getPassword(author_id)
@@ -78,6 +78,5 @@ class Registration:
    
     def ask_for_password(bot, thread_id):
         bot.send(Message(text='Teraz jeszcze haslo. Nikomu nie powiem ;)'), thread_id=thread_id)
-
 
 
