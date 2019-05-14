@@ -4,45 +4,49 @@ import os
 
 from Registration import *
 from Ciphrator import *
-from Isod import *
-from Parser import *
+from Plan import *
+from News import *
+
 
 class Utils:
-
     #if the user exists, return his password, if not return None
 
+    @staticmethod
     def getPassword(author_id):
+        ciphrator = Ciphrator()
         f = open('accounts/' + author_id)
         lines = f.readlines()
-        return (Ciphrator.decrypt(lines[2]))
+        return (ciphrator.decrypt(lines[2]))
 
     #if the user exists, return his login, if not return None
 
+    @staticmethod
     def getLogin(author_id):
+        ciphrator = Ciphrator()
         f = open('accounts/' + author_id)
         lines = f.readlines()
-        return Ciphrator.decrypt(lines[1])
+        return ciphrator.decrypt(lines[1])
 
     #delete user's data from 'db' file
-
+    @staticmethod
     def delete_my_data(author_id):
         os.remove('accounts/' + author_id)
 
     #find keywords for deleting users data
-
+    @staticmethod
     def wantToDeleteData(text):
         if 'Nie znasz mnie' in text or 'nie znasz mnie' in text or 'nie lubię' in text or 'Nie lubię' in text or 'Spadaj' in text or 'spadaj' in text or 'nara' in text or 'Nara' in text or 'usuń' in text or 'Usuń' in text:
             return True
         return False
 
-    #find keyword about fun facts
+    # find keyword about fun facts
     def wantToHearFunFact(text):
         if 'ciekawostka' in text or 'lol' in text or 'xD' in text:
             return True
         return False
 
     #find keywords about the plan
-
+    @staticmethod
     def wantToGetPlan(text):
         if 'plan' in text or 'zajęcia' in text or 'Plan' in text or 'Zajęcia' in text:
             if 'dziś' in text or 'dzisiaj' in text or 'Dziś' in text or 'Dzisiaj' in text:
@@ -63,12 +67,14 @@ class Utils:
                 return 6
             elif 'cały' in text or 'Cały' in text or 'tydzień' in text or 'Tydzień' in text:
                 return 7
+            elif 'następne' in text or 'Następne' in text or 'najbliższe' in text or 'Najbliższe' in text or 'zaraz' in text or 'teraz' in text or 'Zaraz' in text or 'Teraz' in text:
+                return 8
             else:
                 return -1
         return False
 
     #find keywords about the news
-
+    @staticmethod
     def wantToGetNews(text):
         if 'Aktualności' in text or 'aktualności' in text or 'News' in text or 'news' in text:
             return True
@@ -78,24 +84,25 @@ class Utils:
 
 
     #message for the case when user says something we dont know how to react to
-
+    @staticmethod
     def messageNotRecognized(bot, thread_id):
         bot.send(Message(text='Chyba nie rozumiem. Przepraszam, ale w tej chwili umiem tylko parę zdań na temat planu zajęć i ogłoszeń. Kiepski ze mnie partner do konwersacji :('), thread_id=thread_id)
 
 
-    #return todays plan
 
-    def getTodayPlan(login, password):
-        return plan.format_plan(login, password)
+    #return todays plan
+    #@staticmethod
+    #def getTodayPlan(login, password):
+    #    return plan.format_plan(login, password)
 
     #decide how to replay
-
+    @staticmethod
     def manage_utils(bot, text, author_id, thread_id):
 
         login = Utils.getLogin(author_id)
         password = Utils.getPassword(author_id)
-        plan = Isod.getPlan(login, password)
-        news = Isod.getNews(login, password)
+        plan = Plan(login, password)
+        news = News(login, password)
 
         #user data deletion
 
@@ -103,7 +110,7 @@ class Utils:
             Utils.delete_my_data(author_id)
             bot.send(Message(text='Kim Ty jesteś?'), thread_id=thread_id)
 
-        #fun facts
+        # fun facts
         if Utils.wantToHearFunFact(text):
             bot.send(Message(text='Jakie papierosy palą studenci EE?'), thread_id=thread_id)
             bot.send(Message(text='Elektryczne!'), thread_id=thread_id)
@@ -111,19 +118,23 @@ class Utils:
         #plan section
 
         elif Utils.wantToGetPlan(text) == 1:
-            bot.send(Message(text=Parser.getplandaily(plan, 1)), thread_id=thread_id)
+            bot.send(Message(text=plan.get_plan_daily(1)), thread_id=thread_id)
         elif Utils.wantToGetPlan(text) == 2:
-            bot.send(Message(text=Parser.getplandaily(plan, 2)), thread_id=thread_id)
+            bot.send(Message(text=plan.get_plan_daily(2)), thread_id=thread_id)
         elif Utils.wantToGetPlan(text) == 3:
-            bot.send(Message(text=Parser.getplandaily(plan, 3)), thread_id=thread_id)
+            bot.send(Message(text=plan.get_plan_daily(3)), thread_id=thread_id)
         elif Utils.wantToGetPlan(text) == 4:
-            bot.send(Message(text=Parser.getplandaily(plan, 4)), thread_id=thread_id)
+            bot.send(Message(text=plan.get_plan_daily(4)), thread_id=thread_id)
         elif Utils.wantToGetPlan(text) == 5:
-            bot.send(Message(text=Parser.getplandaily(plan, 5)), thread_id=thread_id)
+            bot.send(Message(text=plan.get_plan_daily(5)), thread_id=thread_id)
         elif Utils.wantToGetPlan(text) == 6:
             bot.send(Message(text='W weekend nie masz zajęć :)'), thread_id=thread_id)
         elif Utils.wantToGetPlan(text) == 7:
-            bot.send(Message(text=Parser.getplanweekly(plan)), thread_id=thread_id)
+            weekplan = plan.get_plan_weekly()
+            for i in weekplan:
+                bot.send(Message(text=i), thread_id=thread_id)
+        elif Utils.wantToGetPlan(text) == 8:
+            bot.send(Message(text=plan.get_next_class()), thread_id=thread_id)
         elif Utils.wantToGetPlan(text) == -1:
             bot.send(Message(text='Może to ja niedomagam, ale nie wiem na kiedy chcesz ten plan. Wyrażaj się jaśniej proszę'), thread_id=thread_id)
 
@@ -131,11 +142,9 @@ class Utils:
 
        
         elif Utils.wantToGetNews(text) == True:
-            bot.send(Message(text=Parser.getlastnews(news)[0]), thread_id=thread_id)
-            bot.send(Message(text=Parser.getlastnews(news)[1]), thread_id=thread_id)
-            bot.send(Message(text=Parser.getlastnews(news)[2]), thread_id=thread_id)
-            bot.send(Message(text=Parser.getlastnews(news)[3]), thread_id=thread_id)
-            bot.send(Message(text=Parser.getlastnews(news)[4]), thread_id=thread_id)
+            news_list = news.getlastnews()
+            for obj in news_list:
+                bot.send(Message(text=obj), thread_id=thread_id)
 
         else:
             Utils.messageNotRecognized(bot, thread_id)

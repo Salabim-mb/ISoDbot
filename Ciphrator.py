@@ -33,7 +33,7 @@ class Ciphrator:
         for c in text:
             if c == '=':
                 binarystr += '000000'
-            else:
+            elif not c == '\n':
                 binarystr += '{:0>6}'.format(str(bin(self.table.index(c)))[2:])
         for i in range(8, len(binarystr) + int(len(binarystr) / 8), 9):
             binarystr = binarystr[:i] + ' ' + binarystr[i:]

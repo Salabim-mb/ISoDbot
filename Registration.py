@@ -45,6 +45,8 @@ class Registration:
 
     def registration_check(bot, thread_id, author_id, text):
 
+        ciphrator = Ciphrator()
+
         if Registration.registered(author_id) == 0:
             f = open('accounts/' + author_id, "w+")
             f.close()
@@ -52,12 +54,12 @@ class Registration:
             Registration.ask_for_username(bot, thread_id)
 
         elif Registration.registered(author_id) == 1:
-            text = Ciphrator.encrypt(text)
+            text = ciphrator.encrypt(text)
             Registration.save(text + '\n', author_id)
             Registration.ask_for_password(bot, thread_id)
 
         elif Registration.registered(author_id) == 2:
-            text = Ciphrator.encrypt(text)
+            text = ciphrator.encrypt(text)
             Registration.save(text + '\n', author_id)
             login = Utils.getLogin(author_id)
             password = Utils.getPassword(author_id)
