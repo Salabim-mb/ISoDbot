@@ -35,6 +35,12 @@ class Utils:
             return True
         return False
 
+    #find keyword about fun facts
+    def wantToHearFunFact(text):
+        if 'ciekawostka' in text or 'lol' in text or 'xD' in text:
+            return True
+        return False
+
     #find keywords about the plan
 
     def wantToGetPlan(text):
@@ -96,6 +102,11 @@ class Utils:
         if Utils.wantToDeleteData(text):
             Utils.delete_my_data(author_id)
             bot.send(Message(text='Kim Ty jesteś?'), thread_id=thread_id)
+
+        #fun facts
+        if Utils.wantToHearFunFact(text):
+            bot.send(Message(text='Jakie papierosy palą studenci EE?'), thread_id=thread_id)
+            bot.send(Message(text='Elektryczne!'), thread_id=thread_id)
 
         #plan section
 
