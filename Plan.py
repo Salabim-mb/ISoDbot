@@ -139,7 +139,7 @@ class Plan:
         res.sort(key=lambda x: x.time)
         return res
 
-    def get_next_class(self):
+    def define_next_class(self):
         t = datetime.now()
         day = t.weekday() + 1
         if t.hour < 10:
@@ -153,6 +153,10 @@ class Plan:
             if now_time >= obj.time and now_time < classes[i+1].time:
                 return classes[i+1]
 
+    def get_next_class(self):
+        classes = self.define_next_class()
+        return classes.get_class_info()
+    
     def get_plan_daily(self, day):
         day = self.Day(day, self.classes)
         return day.get_classes()
