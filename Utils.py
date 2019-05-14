@@ -6,6 +6,7 @@ from Registration import *
 from Ciphrator import *
 from Plan import *
 from News import *
+import random
 
 
 class Utils:
