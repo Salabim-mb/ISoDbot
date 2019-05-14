@@ -21,12 +21,12 @@ class Registration:
                 pass
         return i + 1
 
-    #save to the end of the 'db file
+    # save to the end of the 'db file
     def save(text, author_id):
         with open('accounts/' + author_id, 'a') as f:
             f.write(text)
 
-    #check if user is registred or in progress of registraton
+    # check if user is registered or in progress of registraton
 
     def registered(author_id):
         if(Registration.fileExists(author_id) == False):
@@ -37,11 +37,8 @@ class Registration:
             return 2
         else:
             return -1
-        
-        
 
-    #registration process - if registered, use the utilities
-         
+    # registration process - if registered, use the utilities
 
     def registration_check(bot, thread_id, author_id, text):
 

@@ -6,7 +6,7 @@ class plan_item:
             self.id = id
 
 class Parser:
-    def parseplan(text): #przetwarza plan na taki, ktory nadaje sie do getplandaily oraz getplanweekly
+    def parseplan(text):  # przetwarza plan na taki, ktory nadaje sie do getplandaily oraz getplanweekly
         plan_string = ''  # robimy stringa ktorego zapelniamy planem
         for i in text:  # tutaj robimy tylko troche ladniej
             plan_string += i
@@ -77,11 +77,11 @@ class Parser:
         week = week.rstrip()
         return week
 
-    def parsenews(text): #przetwarza newsy na takie, ktore nadaja sie do getlastnews i getnewsno
+    def parsenews(text):  # przetwarza newsy na takie, ktore nadaja sie do getlastnews i getnewsno
         news_string = ''  # robimy stringa ktorego zapelniamy planem
         for index, i in enumerate(text):  # tutaj robimy tylko troche ladniej
             news_string += i
-            #if index - 1 < len(text):
+            # if index - 1 < len(text):
             if (i == '{' or i == '[' or i == ',') and (text[index+1] < 'A' or text[index+1] > 'z'):
                 news_string += "\n"
         plan_array = news_string.split('\n')
@@ -107,13 +107,13 @@ class Parser:
             m += 1
         return activities
 
-    def getlastnews(text): #daje naglowki 5 ostatnich newsow
+    def getlastnews(text):  # daje naglowki 5 ostatnich newsow
         news = Parser.parsenews(text)
         list = []
         for i in range(0, 5):
             list.append(news[i].subject)
         return list
 
-    def getnewsno(text, n): #daje naglowek numer n, zaczynajac od 0
+    def getnewsno(text, n):  # daje naglowek numer n, zaczynajac od 0
         news = Parser.parsenews(text)
         return news[n].subject

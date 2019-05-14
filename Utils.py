@@ -10,7 +10,7 @@ import random
 
 
 class Utils:
-    #if the user exists, return his password, if not return None
+    # if the user exists, return his password, if not return None
 
     @staticmethod
     def getPassword(author_id):
@@ -19,7 +19,7 @@ class Utils:
         lines = f.readlines()
         return (ciphrator.decrypt(lines[2]))
 
-    #if the user exists, return his login, if not return None
+    # if the user exists, return his login, if not return None
 
     @staticmethod
     def getLogin(author_id):
@@ -28,12 +28,12 @@ class Utils:
         lines = f.readlines()
         return ciphrator.decrypt(lines[1])
 
-    #delete user's data from 'db' file
+    # delete user's data from 'db' file
     @staticmethod
     def delete_my_data(author_id):
         os.remove('accounts/' + author_id)
 
-    #find keywords for deleting users data
+    # find keywords for deleting users data
     @staticmethod
     def wantToDeleteData(text):
         if 'Nie znasz mnie' in text or 'nie znasz mnie' in text or 'nie lubię' in text or 'Nie lubię' in text or 'Spadaj' in text or 'spadaj' in text or 'nara' in text or 'Nara' in text or 'usuń' in text or 'Usuń' in text:
@@ -47,12 +47,13 @@ class Utils:
         return False
 
     # find keyword about helpdesk
+    @staticmethod
     def needHelp(text):
-        if 'help' in text or 'pomóż' in text or 'Help' in text or 'Pomóż' in text:
+        if 'help' in text or 'pomóż' in text or 'Help' in text or 'Pomóż' in text or '??' in text or '?' in text or 'Helpdesk' in text or 'helpdesk' in text or 'commands' in text or 'Commands' in text or 'komendy' in text or 'Komendy' in text or 'Polecenia' in text or 'polecenia' in text:
             return True
         return False
 
-    #find keywords about the plan
+    # find keywords about the plan
     @staticmethod
     def wantToGetPlan(text):
         if 'plan' in text or 'zajęcia' in text or 'Plan' in text or 'Zajęcia' in text:
@@ -80,29 +81,24 @@ class Utils:
                 return -1
         return False
 
-    #find keywords about the news
+    # find keywords about the news
     @staticmethod
     def wantToGetNews(text):
         if 'Aktualności' in text or 'aktualności' in text or 'News' in text or 'news' in text:
             return True
         return False
 
-
-
-
-    #message for the case when user says something we dont know how to react to
+    # message for the case when user says something we dont know how to react to
     @staticmethod
     def messageNotRecognized(bot, thread_id):
         bot.send(Message(text='Chyba nie rozumiem. Przepraszam, ale w tej chwili umiem tylko parę zdań na temat planu zajęć i ogłoszeń. Kiepski ze mnie partner do konwersacji :('), thread_id=thread_id)
 
+    # return todays plan
+    # @staticmethod
+    # def getTodayPlan(login, password):
+    # return plan.format_plan(login, password)
 
-
-    #return todays plan
-    #@staticmethod
-    #def getTodayPlan(login, password):
-    #    return plan.format_plan(login, password)
-
-    #decide how to replay
+    # decide how to replay
     @staticmethod
     def manage_utils(bot, text, author_id, thread_id):
 
@@ -111,12 +107,11 @@ class Utils:
         plan = Plan(login, password)
         news = News(login, password)
 
-        #user data deletion
+        # user data deletion
 
         if Utils.wantToDeleteData(text):
             Utils.delete_my_data(author_id)
             bot.send(Message(text='Kim Ty jesteś?'), thread_id=thread_id)
-
 
         # fun facts
         elif Utils.wantToHearFunFact(text):
@@ -147,11 +142,11 @@ class Utils:
             else:
                 return -1
 
-        #helpdesk
+        # helpdesk
         if Utils.needHelp(text):
-            bot.send(Message(text='Oto lista dostępnych poleceń po autoryzacji:\n usuń - polecenie usuwa dane użytkownika z systemu.\n plan <dzień tygodnia> - polecenie wyświetli plan na podany dzień tygodnia.\n aktualności - polecenie wyświetla 5 ostatnich aktualności.\n żart - polecenie wyświetla losowo wybrany żart.\n pomóż - polecenie wyświetli ten komunikat.'), thread_id=thread_id)
+            bot.send(Message(text='Oto lista dostępnych poleceń po wykonanej autoryzacji:\n usuń - polecenie usuwa dane użytkownika z systemu.\n plan <dzień tygodnia> - polecenie wyświetli plan na podany dzień tygodnia.\n aktualności - polecenie wyświetla nagłówki 5 ostatnich aktualności.\n żart - polecenie wyświetla losowo wybrany z systemu żart.\n pomóż - polecenie wyświetla ten komunikat.'), thread_id=thread_id)
 
-        #plan section
+        # plan section
 
         elif Utils.wantToGetPlan(text) == 1:
             bot.send(Message(text=plan.get_plan_daily(1)), thread_id=thread_id)
@@ -174,9 +169,8 @@ class Utils:
         elif Utils.wantToGetPlan(text) == -1:
             bot.send(Message(text='Może to ja niedomagam, ale nie wiem na kiedy chcesz ten plan. Wyrażaj się jaśniej proszę'), thread_id=thread_id)
 
-        #News section
+        # News section
 
-       
         elif Utils.wantToGetNews(text) == True:
             news_list = news.getlastnews()
             for obj in news_list:
