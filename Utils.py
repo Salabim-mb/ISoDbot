@@ -46,6 +46,12 @@ class Utils:
             return True
         return False
 
+    # find keyword about helpdesk
+    def needHelp(text):
+        if 'help' in text or 'pomóż' in text or 'Help' in text or 'Pomóż' in text:
+            return True
+        return False
+
     #find keywords about the plan
     @staticmethod
     def wantToGetPlan(text):
@@ -111,6 +117,7 @@ class Utils:
             Utils.delete_my_data(author_id)
             bot.send(Message(text='Kim Ty jesteś?'), thread_id=thread_id)
 
+
         # fun facts
         if Utils.wantToHearFunFact(text):
             x = random.randint(0, 10)
@@ -139,6 +146,10 @@ class Utils:
                 bot.send(Message(text='Dlaczego programiści mylą Boże Narodzenie z Halloween ?\nBo 25 Dec = 31 Oct'), thread_id=thread_id)
             else:
                 return -1
+
+        #helpdesk
+        if Utils.needHelp(text):
+            bot.send(Message(text='Oto lista dostępnych poleceń po autoryzacji:\n usuń - polecenie usuwa dane użytkownika z systemu.\n plan <dzień tygodnia> - polecenie wyświetli plan na podany dzień tygodnia.\n aktualności - polecenie wyświetla 5 ostatnich aktualności.\n żart - polecenie wyświetla losowo wybrany żart.\n pomóż - polecenie wyświetli ten komunikat.'), thread_id=thread_id)
 
         #plan section
 
