@@ -112,7 +112,7 @@ class Utils:
             bot.send(Message(text='Kim Ty jesteś?'), thread_id=thread_id)
 
         # fun facts
-        if Utils.wantToHearFunFact(text):
+        elif Utils.wantToHearFunFact(text):
             x = random.randint(0, 10)
             if x is 0:
                 bot.send(Message(text='Jakie papierosy palą studenci EE?'), thread_id=thread_id)
