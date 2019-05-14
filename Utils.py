@@ -41,7 +41,7 @@ class Utils:
 
     # find keyword about fun facts
     def wantToHearFunFact(text):
-        if 'ciekawostka' in text or 'lol' in text or 'xD' in text:
+        if 'ciekawostka' in text or 'żart' in text or 'żarcik' in text or 'lol' in text or 'xD' in text or 'XD' in text:
             return True
         return False
 
@@ -110,10 +110,54 @@ class Utils:
             Utils.delete_my_data(author_id)
             bot.send(Message(text='Kim Ty jesteś?'), thread_id=thread_id)
 
-        # fun facts
-        if Utils.wantToHearFunFact(text):
-            bot.send(Message(text='Jakie papierosy palą studenci EE?'), thread_id=thread_id)
-            bot.send(Message(text='Elektryczne!'), thread_id=thread_id)
+            # fun facts
+            if Utils.wantToHearFunFact(text):
+                x = random.randint(0, 10)
+                if x is 0:
+                    bot.send(Message(text='Jakie papierosy palą studenci EE?'), thread_id=thread_id)
+                    bot.send(Message(text='Elektryczne!'), thread_id=thread_id)
+                elif x is 1:
+                    bot.send(Message(
+                        text='Na lekcji programowania obiektowego student łapie koleżankę obok za pierś. Na to ona: „To prywatne!!!”, a on odpowiada: „Myślałem że jesteśmy w tej samej klasie :D „'),
+                             thread_id=thread_id)
+                elif x is 2:
+                    bot.send(Message(
+                        text='Javoviec jakimś cudem spłodził dziecko. Miał wymyślić imię dla dziecka. Na wszelki wypadek przygotował 2, jakby urodziły się bliźniaki. Na nieszczęście urodziły się trojaczki i dostały imiona: Jaś, Staś, ArrayIndexOutOfBoundsException'),
+                             thread_id=thread_id)
+                elif x is 3:
+                    bot.send(Message(
+                        text='Spotyka się dwóch programistów:\n– Słyszałem, że straciłeś pracę. Jak to jest być bezrobotnym?\n– To było najgorsze pół godziny mojego życia!'),
+                             thread_id=thread_id)
+                elif x is 4:
+                    bot.send(Message(
+                        text='Doktorze, każdej nocy śni mi się jeden i ten sam koszmar. Jestem na Antarktydzie a wokół pełno pingwinów. I ciągle przybywają i przybywają. Zbliżają się do mnie, napierają na mnie, przepychają mnie do urwiska i za każdym razem spychają mnie do lodowatej wody.\n– Normalnie leczymy takie przypadki w jeden dzień. Ale z Panem możemy mieć większe problemy, Panie Gates…'),
+                             thread_id=thread_id)
+                elif x is 5:
+                    bot.send(Message(
+                        text='Jadą samochodem 3 koledzy i jeden z nich był programistą. Samochód się psuje, pasażerowie siedzą w środku i dywagują: świece, rozrusznik, benzyna, skończył sie olej… Nagle programista mówi: a może wyjdźmy z samochodu poczekajmy chwilę i potem wejdźmy :D'),
+                             thread_id=thread_id)
+                elif x is 6:
+                    bot.send(Message(
+                        text='Z programowaniem jak z budową katedry, budujesz,budujesz a potem się modlisz (żeby wszystko działało)'),
+                             thread_id=thread_id)
+                elif x is 7:
+                    bot.send(Message(
+                        text='Programista otwiera lodówkę, sięga po masło i patrząc na napis „82%” mówi:\n– a to jeszcze chwilka i będzie gotowe.'),
+                             thread_id=thread_id)
+                elif x is 8:
+                    bot.send(Message(
+                        text='Na świecie jest 10 rodzajów ludzi: ci, którzy rozumieją system binarny i ci, którzy go nie rozumieją.'),
+                             thread_id=thread_id)
+                elif x is 9:
+                    bot.send(Message(
+                        text='Żona do programisty: idź do sklepu kup 5 bułek, a jak będą jajka kup 10.\nProgramista będąc w sklepie: – Są jajka?\nSprzedawczyni: – Tak, są.\nProgramista: To poproszę 10 bułek.'),
+                             thread_id=thread_id)
+                elif x is 10:
+                    bot.send(
+                        Message(text='Dlaczego programiści mylą Boże Narodzenie z Halloween ?\nBo 25 Dec = 31 Oct'),
+                        thread_id=thread_id)
+                else:
+                    return -1
 
         #plan section
 
