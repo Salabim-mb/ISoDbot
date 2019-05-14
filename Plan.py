@@ -164,10 +164,3 @@ class Plan:
             res.append(day.get_classes())
         return res
 
-
-
-
-plan = Plan('polaczej', '6pVev7sf')
-#print(plan.Day(2, plan.classes).get_last_class().get_class_info())
-classes = plan.get_class_list()
-print(plan.get_next_class().get_class_info())
