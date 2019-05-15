@@ -150,7 +150,7 @@ class Utils:
                 return -1
 
         # helpdesk
-        if Utils.needHelp(text):
+        elif Utils.needHelp(text):
             bot.send(Message(text='Oto lista dostępnych poleceń po wykonanej autoryzacji:\n usuń - polecenie usuwa dane użytkownika z systemu.\n plan <dzień tygodnia> - polecenie wyświetli plan na podany dzień tygodnia.\n aktualności - polecenie wyświetla nagłówki 5 ostatnich aktualności.\n żart - polecenie wyświetla losowo wybrany z systemu żart.\n pomóż - polecenie wyświetla ten komunikat.'), thread_id=thread_id)
 
         # plan section
@@ -183,7 +183,7 @@ class Utils:
             for obj in news_list:
                 bot.send(Message(text=obj), thread_id=thread_id)
 
-        elif Utils.wantToGetAvgGrade:
+        elif Utils.wantToGetAvgGrade(text):
             grade = avggrade.getAvgGrade()
             bot.send(Message(text=grade.text), thread_id=thread_id)
 
