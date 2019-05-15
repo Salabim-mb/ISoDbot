@@ -6,6 +6,7 @@ from Registration import *
 from Ciphrator import *
 from Plan import *
 from News import *
+from AvgGrade import *
 import random
 
 
@@ -87,6 +88,11 @@ class Utils:
         if 'Aktualności' in text or 'aktualności' in text or 'News' in text or 'news' in text:
             return True
         return False
+    @staticmethod
+    def wantToGetAvgGrade(text):
+        if 'średnia' in text or 'Średnia' in text:
+            return True
+        return False
 
     # message for the case when user says something we dont know how to react to
     @staticmethod
@@ -106,6 +112,7 @@ class Utils:
         password = Utils.getPassword(author_id)
         plan = Plan(login, password)
         news = News(login, password)
+        avggrade = AvgGrade(login, password)
 
         # user data deletion
 
@@ -175,6 +182,10 @@ class Utils:
             news_list = news.getlastnews()
             for obj in news_list:
                 bot.send(Message(text=obj), thread_id=thread_id)
+
+        elif Utils.wantToGetAvgGrade:
+            grade = avggrade.getAvgGrade()
+            bot.send(Message(text=grade.text), thread_id=thread_id)
 
         else:
             Utils.messageNotRecognized(bot, thread_id)
