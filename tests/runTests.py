@@ -4,6 +4,8 @@ import deleteMyDataTest as delete
 import encryptTest as enc
 import decryptTest as dec
 import verifyDataTest as data
+import RegistrationTest as reg
+import fileSizeTest as fst
 
 print('------------------ test metody getLogin z klasy Utils ------------------')
 loginTest = login.run()
@@ -30,4 +32,13 @@ print('\n------------------ test metody decrypt z klasy Isod ------------------'
 dataTest = data.run()
 for test in dataTest:
     print (test + ' -> ' + str(dataTest[test]))
-
+    
+print('\n------------------ test metody register z klasy Registration ------------------')
+regTest = reg.run()
+for test in regTest:
+    print (test + ' -> ' + str(regTest[test]))
+    
+print('\n------------------ test metody fileSize z klasy Registration ------------------')
+fstTest = fst.run()
+for test in fstTest
+    print (test + ' -> ' + str(fstTest[test]))
