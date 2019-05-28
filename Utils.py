@@ -18,7 +18,10 @@ class Utils:
         ciphrator = Ciphrator()
         f = open('accounts/' + author_id)
         lines = f.readlines()
-        return (ciphrator.decrypt(lines[2]))
+        try:
+            return (ciphrator.decrypt(lines[2]))
+        except:
+            return -1
 
     # if the user exists, return his login, if not return None
 
@@ -27,12 +30,18 @@ class Utils:
         ciphrator = Ciphrator()
         f = open('accounts/' + author_id)
         lines = f.readlines()
-        return ciphrator.decrypt(lines[1])
+        try:
+            return ciphrator.decrypt(lines[1])
+        except:
+            return -1
 
     # delete user's data from 'db' file
     @staticmethod
     def delete_my_data(author_id):
-        os.remove('accounts/' + author_id)
+        try:
+            os.remove('accounts/' + author_id)
+        except:
+            return -1
 
     # find keywords for deleting users data
     @staticmethod
@@ -42,6 +51,7 @@ class Utils:
         return False
 
     # find keyword about fun facts
+    @staticmethod
     def wantToHearFunFact(text):
         if 'ciekawostka' in text or 'żart' in text or 'żarcik' in text or 'lol' in text or 'xD' in text or 'XD' in text:
             return True
