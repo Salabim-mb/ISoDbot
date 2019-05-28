@@ -16,19 +16,19 @@ def run():
         counter += 1
     else:
         errorMessages['poniedziałek'] = 'stan faktyczny: poniedziałek, wynik testu: nieznana komenda'
-    if (Utils.getLogin('wtorek') != -1):
+    if (Utils.wantToGetPlan('wtorek') != -1):
         counter += 1
     else:
         errorMessages['wtorek'] = 'stan faktyczny: wtorek, wynik testu: nieznana komenda'
-    if (Utils.getLogin('środa') != -1):
+    if (Utils.wantToGetPlan('środa') != -1):
         counter += 1
     else:
         errorMessages['środa'] = 'stan faktyczny: środa, wynik testu: nieznana komenda'
-    if (Utils.getLogin('user4.tst') == -1):
+    if (Utils.wantToGetPlan('user4.tst') == -1):
         counter += 1
     else:
         errorMessages['czwartek'] = 'stan faktyczny: czwartek, wynik testu: nieznana komenda'
-    if (Utils.getLogin('piątek') != -1):
+    if (Utils.wantToGetPlan('piątek') != -1):
         counter += 1
     else:
         errorMessages['piątek'] = 'stan faktyczny: piąteczek, piątunio, wynik testu: nieznana komenda'
