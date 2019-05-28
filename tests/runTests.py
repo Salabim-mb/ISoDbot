@@ -3,6 +3,7 @@ import getPasswordTest as password
 import deleteMyDataTest as delete
 import encryptTest as enc
 import decryptTest as dec
+import verifyDataTest as data
 
 print('------------------ test metody getLogin z klasy Utils ------------------')
 loginTest = login.run()
@@ -24,3 +25,9 @@ print('\n------------------ test metody decrypt z klasy Ciphartor --------------
 decTest = dec.run()
 for test in decTest: 
     print (test + ' -> ' + str(decTest[test]))
+
+print('\n------------------ test metody decrypt z klasy Isod ------------------')
+dataTest = data.run()
+for test in dataTest:
+    print (test + ' -> ' + str(dataTest[test]))
+
