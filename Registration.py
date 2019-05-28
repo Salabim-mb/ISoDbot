@@ -29,13 +29,13 @@ class Registration:
     # check if user is registered or in progress of registraton
 
     def registered(author_id):
-        if(Registration.fileExists(author_id) == False):
+        if(Registration.fileExists(author_id) == False): #file with this user's data doesnt exist yet, it's 1st message from this user
             return 0
-        elif(Registration.fileSize(author_id) == 1):
+        elif(Registration.fileSize(author_id) == 1): #file with this user's data has only 1 line - user already passed login
             return 1
-        elif(Registration.fileSize(author_id) == 2):
+        elif(Registration.fileSize(author_id) == 2): #file with this user's data has 2 lines - user already passed password - need to verify that data
             return 2
-        else:
+        else:   #none of the above, user is registered and verified
             return -1
 
     # registration process - if registered, use the utilities
