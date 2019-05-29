@@ -16,7 +16,7 @@ def run():
 		errorMessages['anonek'] = 'test: podano tylko login'
 	elif Registration.fileSize('anonek.tst') == 2:
 		errorMessages['anonek'] = 'test: podano login i hasło'
-	else:
+	elif Registration.fileSize('anonek.tst') > 2:
 		errorMessages['anonek'] = 'test: za dużo linijek w pliku'
 	else:
 		errorMessages['anonek'] = 'test: plik nie istnieje'
@@ -27,7 +27,7 @@ def run():
 	elif Registration.fileSize('balasm.tst') == 2:
 		errorMessages['balasm'] = 'test: podano login i hasło'
 		counter += 1
-	else:
+	elif Registration.fileSize('balasm.tst') > 2:
 		errorMessages['balasm'] = 'test: za dużo linijek w pliku'
 	else:
 		errorMessages['balasm'] = 'test: plik nie istnieje'
@@ -37,7 +37,7 @@ def run():
 	elif Registration.fileSize('boguszj.tst') == 2:
 		errorMessages['boguszj'] = 'test: podano login i hasło'
 		counter += 1
-	else:
+	elif Registration.fileSize('boguszj.tst') > 2:
 		errorMessages['boguszj'] = 'test: za dużo linijek w pliku'
 	else:
 		errorMessages['boguszj'] = 'test: plik nie istnieje'
@@ -47,7 +47,7 @@ def run():
 	elif Registration.fileSize('polaczej.tst') == 2:
 		errorMessages['polaczej'] = 'test: podano login i hasło'
 		counter += 1
-	else:
+	elif Registration.fileSize('polaczej.tst') > 2:
 		errorMessages['polaczej'] = 'test: za dużo linijek w pliku'
 	else:
 		errorMessages['polaczej'] = 'test: plik nie istnieje'
@@ -56,7 +56,7 @@ def run():
 		errorMessages['ktokolwiek'] = 'test: podano tylko login'
 	elif Registration.fileSize('ktokolwiek.tst') == 2:
 		errorMessages['ktokolwiek'] = 'test: podano login i hasło'
-	else:
+	elif Registration.fileSize('ktokolwiek.tst') > 2:
 		errorMessages['ktokolwiek'] = 'test: za dużo linijek w pliku'
 	else:
 		errorMessages['ktokolwiek'] = 'test: plik nie istnieje'
