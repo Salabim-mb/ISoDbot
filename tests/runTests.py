@@ -5,7 +5,7 @@ import encryptTest as enc
 import decryptTest as dec
 import verifyDataTest as data
 import RegistrationTest as reg
-#import fileSizeTest as fst
+import fileSizeTest as fst
 import getDayTest as day
 
 print('------------------ test metody getLogin z klasy Utils ------------------')
@@ -43,7 +43,7 @@ regTest = reg.run()
 for test in regTest:
     print (test + ' -> ' + str(regTest[test]))
     
-#print('\n------------------ test metody fileSize z klasy Registration ------------------')
-#fstTest = fst.run()
-#for test in fstTest:
-#    print (test + ' -> ' + str(fstTest[test]))
+print('\n------------------ test metody fileSize z klasy Registration ------------------')
+fstTest = fst.run()
+for test in fstTest:
+    print (test + ' -> ' + str(fstTest[test]))

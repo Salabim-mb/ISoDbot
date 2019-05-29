@@ -9,13 +9,11 @@ from Ciphrator import *
 class Registration:
 
     def fileExists(author_id):
-        try:
-            f = open('accounts/' + author_id, 'r')
-        except:
-            return False
-        return True
+        return os.path.exists ('accounts/' + author_id)
 
     def fileSize(author_id):
+        if(os.path.exists('accounts/' + author_id) == False):
+            return -1
         with open('accounts/' + author_id) as f:
             for i, l in enumerate(f):
                 pass
