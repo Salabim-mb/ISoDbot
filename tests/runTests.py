@@ -34,7 +34,7 @@ decTest = dec.run()
 for test in decTest: 
     print (test + ' -> ' + str(decTest[test]))
 
-print('\n------------------ test metody decrypt z klasy Isod ------------------')
+print('\n------------------ test metody verifyData z klasy Isod ------------------')
 dataTest = data.run()
 for test in dataTest:
     print (test + ' -> ' + str(dataTest[test]))
@@ -49,13 +49,7 @@ APITest = api.run()
 for test in APITest:
     print (test + ' -> ' + str(APITest[test]))
 
-    
 print('\n------------------ test metody fileSize z klasy Registration ------------------')
 fstTest = fst.run()
 for test in fstTest:
     print (test + ' -> ' + str(fstTest[test]))
-
-print('\n------------------ test metody delete_my_data z klasy Utils ------------------')
-deleteTest = delete.run()
-for test in deleteTest:
-    print (test + ' -> ' + str(deleteTest[test]))
