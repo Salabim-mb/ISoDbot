@@ -45,5 +45,5 @@ for test in regTest:
     
 print('\n------------------ test metody fileSize z klasy Registration ------------------')
 fstTest = fst.run()
-for test in fstTest
+for test in fstTest:
     print (test + ' -> ' + str(fstTest[test]))
