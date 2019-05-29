@@ -42,5 +42,3 @@ def run():
     errorMessages['ilość testów zaliczonych'] = counter
 
     return errorMessages
-
-print(run())
