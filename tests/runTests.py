@@ -5,8 +5,8 @@ import encryptTest as enc
 import decryptTest as dec
 import verifyDataTest as data
 import RegistrationTest as reg
-import fileSizeTest as fst
-import wantToGetPlan as wtgp
+#import fileSizeTest as fst
+#import wantToGetPlan as wtgp
 
 print('------------------ test metody getLogin z klasy Utils ------------------')
 loginTest = login.run()
@@ -20,10 +20,10 @@ print('\n------------------ test metody delete_my_data z klasy Utils -----------
 deleteTest = delete.run()
 for test in deleteTest: 
     print (test + ' -> ' + str(deleteTest[test]))
-print('\n------------------ test metody wantToGetPlan z klasy Utils ------------------')
-planTest = wtgp.run()
-for test in planTest:
-    print (test + ' -> ' + str(planTest[test]))
+#print('\n------------------ test metody wantToGetPlan z klasy Utils ------------------')
+#planTest = wtgp.run()
+#for test in planTest:
+#    print (test + ' -> ' + str(planTest[test]))
 print('\n------------------ test metody encrypt z klasy Ciphartor ------------------')
 encTest = enc.run()
 for test in encTest: 
@@ -43,7 +43,7 @@ regTest = reg.run()
 for test in regTest:
     print (test + ' -> ' + str(regTest[test]))
     
-print('\n------------------ test metody fileSize z klasy Registration ------------------')
-fstTest = fst.run()
-for test in fstTest:
-    print (test + ' -> ' + str(fstTest[test]))
+#print('\n------------------ test metody fileSize z klasy Registration ------------------')
+#fstTest = fst.run()
+#for test in fstTest:
+#    print (test + ' -> ' + str(fstTest[test]))
