@@ -11,7 +11,7 @@ printf "user5\n\nname5" >> accounts/boguszj.tst
 printf "user5" >> accounts/polaczej.tst
 printf "user5\n\nname5" >> accounts/balasm.tst
 
-python runTests.py
+python3 runTests.py
 
 rm -r accounts
  

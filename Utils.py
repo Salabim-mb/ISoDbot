@@ -1,3 +1,5 @@
+# coding=UTF-8
+
 from fbchat.models import *
 from fbchat import Client, log
 import os

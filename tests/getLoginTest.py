@@ -32,7 +32,7 @@ def run():
 	else:
 		errorMessages['plik: user5.tst'] = 'stan faktyczny: plik zawiera login, wynik testu: plik nie zawiera loginu'
 
-	errorMessages['ilość testów'] = number_of_test
-	errorMessages['ilość testów zaliczonych'] = counter
+	errorMessages['ilosc testow'] = number_of_test
+	errorMessages['ilosc testow zaliczonych'] = counter
 
 	return errorMessages
