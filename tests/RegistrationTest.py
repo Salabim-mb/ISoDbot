@@ -13,7 +13,7 @@ def run():
 	counter = 0
 	
 	
-	if Registration.registered('anonek.tst') == False:
+	if Registration.registered('anonek.tst') == 0:
 		counter += 1
 	elif Registration.registered('anonek.tst') == 1:
 		errorMessages['anonek'] = 'test: podany tylko login, stan faktyczny: niezarejestrowany'
@@ -23,7 +23,7 @@ def run():
 		errorMessages['anonek'] = 'test: zarejestrowany i zweryfikowany, stan faktyczny: niezarejestrowany'
 		
 		
-	if Registration.registered('balasm.tst') == False:
+	if Registration.registered('balasm.tst') == 0:
 		errorMessages['balasm'] = 'test: niezarejestrowany, stan faktyczny: zweryfikowany'
 	elif Registration.registered('balasm.tst') == 1:
 		errorMessages['balasm'] = 'test: podany tylko login, stan faktyczny: zweryfikowany'
@@ -33,7 +33,7 @@ def run():
 		counter += 1
 		
 		
-	if Registration.registered('boguszj.tst') == False:
+	if Registration.registered('boguszj.tst') == 0:
 		errorMessages['boguszj'] = 'test: niezarejestrowany, stan faktyczny: zweryfikowany'
 	elif Registration.registered('boguszj.tst') == 1:
 		errorMessages['boguszj'] = 'test: podany tylko login, stan faktyczny: niezarejestrowany'
@@ -43,7 +43,7 @@ def run():
 		counter += 1
 		
 	
-	if Registration.registered('polaczej.tst') == False:
+	if Registration.registered('polaczej.tst') == 0:
 		errorMessages['polaczej.tst'] = 'test: niezarejestrowany, stan faktyczny: zweryfikowany'
 	elif Registration.registered('polaczej.tst') == 1:
 		counter += 1
@@ -53,7 +53,7 @@ def run():
 		errorMessages['polaczej'] = 'test: podany login i hasło, stan faktyczny: podany tylko login'
 	
 	
-	if Registration.registered('ktokolwiek') == False:
+	if Registration.registered('ktokolwiek') == 0:
 		counter += 1
 	elif Registration.registered('ktokolwiek') == 1:
 		errorMessages['ktokolwiek'] = 'test: podany tylko login, stan faktyczny: niezarejestrowany'
