@@ -54,3 +54,8 @@ print('\n------------------ test metody fileSize z klasy Registration ----------
 fstTest = fst.run()
 for test in fstTest:
     print (test + ' -> ' + str(fstTest[test]))
+
+print('\n------------------ test metody delete_my_data z klasy Utils ------------------')
+deleteTest = delete.run()
+for test in deleteTest:
+    print (test + ' -> ' + str(deleteTest[test]))
