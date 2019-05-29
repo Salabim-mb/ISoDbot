@@ -7,6 +7,7 @@ import verifyDataTest as data
 import RegistrationTest as reg
 import fileSizeTest as fst
 import getDayTest as day
+import getAPITest as api
 
 print('------------------ test metody getLogin z klasy Utils ------------------')
 loginTest = login.run()
@@ -42,6 +43,12 @@ print('\n------------------ test metody register z klasy Registration ----------
 regTest = reg.run()
 for test in regTest:
     print (test + ' -> ' + str(regTest[test]))
+
+print('\n------------------ test metody getAPI z klasy Isod ------------------')
+APITest = api.run()
+for test in APITest:
+    print (test + ' -> ' + str(APITest[test]))
+
     
 print('\n------------------ test metody fileSize z klasy Registration ------------------')
 fstTest = fst.run()
