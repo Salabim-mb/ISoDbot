@@ -24,7 +24,7 @@ def run():
         counter += 1
     else:
         errorMessages['środa'] = 'stan faktyczny: środa, wynik testu: nieznana komenda'
-    if (Utils.wantToGetPlan('user4.tst') == -1):
+    if (Utils.wantToGetPlan('czwartek') == -1):
         counter += 1
     else:
         errorMessages['czwartek'] = 'stan faktyczny: czwartek, wynik testu: nieznana komenda'
